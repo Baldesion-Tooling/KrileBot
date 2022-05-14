@@ -4,20 +4,22 @@ using Discord.Commands;
 using Discord.Interactions;
 using Discord.Net;
 using Discord.WebSocket;
-using Newtonsoft.Json;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
-namespace KrileDotNet;
+namespace KrileDotNet.Services;
 
-public class DiscordClientManager
+public class DiscordClientService : IHostedService
 {
     private static DiscordSocketClient? _client;
     private static InteractionService? _interactionService;
     private static CommandService? _commandService;
     private static IServiceProvider? _serviceProvider;
-    public DiscordSocketClient Client => _client!;
 
-    public DiscordClientManager()
+    public DiscordSocketClient? Client => _client;
+    
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
         if (_client is null)
         {
@@ -41,6 +43,16 @@ public class DiscordClientManager
             .AddSingleton(_commandService)
             .AddSingleton(_interactionService)
             .BuildServiceProvider();
+
+        var botToken = Environment.GetEnvironmentVariable("DISCORD_TOKEN");
+        await _client.LoginAsync(TokenType.Bot, botToken);
+        await _client.StartAsync();
+    }
+
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+        await _client!.StopAsync();
+        await _client.LogoutAsync();
     }
 
     private static async Task ClientReady()

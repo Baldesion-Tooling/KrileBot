@@ -1,10 +1,13 @@
 ﻿using Discord;
 using KrileDotNet;
+using KrileDotNet.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-var discordClientManager = new DiscordClientManager();
-var botToken = Environment.GetEnvironmentVariable("DISCORD_TOKEN");
+var hostBuild = new HostBuilder()
+    .ConfigureServices((hostContext, services) =>
+    {
+        services.AddHostedService<DiscordClientService>();
+    });
 
-await discordClientManager.Client.LoginAsync(TokenType.Bot, botToken);
-await discordClientManager.Client.StartAsync();
-
-await Task.Delay(-1);
+await hostBuild.RunConsoleAsync().ConfigureAwait(false);
