@@ -64,12 +64,12 @@ public class DiscordClientService : IHostedService
             if (guildId is not null)
             {
                 await LogDiscordMessage(new LogMessage(LogSeverity.Info, "Startup", "Initializing Guild Commands"));
-                await _interactionService!.RegisterCommandsToGuildAsync(Convert.ToUInt64(guildId), true);
+                await _interactionService.RegisterCommandsToGuildAsync(Convert.ToUInt64(guildId));
             }
             else
             {
                 await LogDiscordMessage(new LogMessage(LogSeverity.Info, "Startup", "Initializing Global Commands"));
-                await _interactionService!.RegisterCommandsGloballyAsync(true);
+                await _interactionService.RegisterCommandsGloballyAsync();
             }
         }
         catch (HttpException exception)

@@ -1,11 +1,9 @@
-﻿using Discord;
-using KrileDotNet;
-using KrileDotNet.Services;
+﻿using KrileDotNet.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var hostBuild = new HostBuilder()
-    .ConfigureServices((hostContext, services) =>
+    .ConfigureServices((_, services) =>
     {
         services.AddHostedService<DiscordClientService>();
     });

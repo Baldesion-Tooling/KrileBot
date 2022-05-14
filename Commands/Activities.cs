@@ -26,7 +26,7 @@ public class Activities : InteractionModuleBase<SocketInteractionContext>
         }
         catch (Exception e)
         {
-            var errorLog = new LogMessage(LogSeverity.Error, "Commands", e.Message);
+            Console.WriteLine(new LogMessage(LogSeverity.Error, "Commands", e.Message));
             await RespondAsync("Unable to start activity. Please ensure I have permission to create invites.", ephemeral: true);
         }
     }
