@@ -17,8 +17,6 @@ public class DiscordClientService : IHostedService
     private static CommandService? _commandService;
     private static IServiceProvider? _serviceProvider;
 
-    public DiscordSocketClient? Client => _client;
-    
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         if (_client is null)
@@ -59,6 +57,7 @@ public class DiscordClientService : IHostedService
     {
         try
         {
+            await _client!.SetActivityAsync(new Game("Ejika's theories", ActivityType.Listening));
             await _interactionService!.AddModulesAsync(Assembly.GetEntryAssembly(), _serviceProvider);
             var guildId = Environment.GetEnvironmentVariable("GUILD_ID");
             if (guildId is not null)
