@@ -1,18 +1,7 @@
-﻿FROM mcr.microsoft.com/dotnet/sdk:6.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/sdk:6.0
 WORKDIR /app
-
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
+COPY KrileDotNet.csproj KrileDotNet.csproj
+RUN dotnet restore
 COPY . .
-RUN dotnet restore "KrileDotNet.csproj"
-COPY . .
-WORKDIR "/src/"
-RUN dotnet build "KrileDotNet.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "KrileDotNet.csproj" -c Release -o /app/publish
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
+RUN dotnet publish -c Release -o /output --no-restore
 ENTRYPOINT ["dotnet", "KrileDotNet.dll"]
