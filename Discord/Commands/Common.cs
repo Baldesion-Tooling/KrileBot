@@ -1,6 +1,6 @@
 ﻿using Discord.Interactions;
 
-namespace KrileDotNet.Commands;
+namespace KrileBot.Commands;
 
 public class Common : InteractionModuleBase<SocketInteractionContext>
 {

@@ -2,7 +2,7 @@
 using Discord.Interactions;
 using Discord.WebSocket;
 
-namespace KrileDotNet.Commands;
+namespace KrileBot.Commands;
 
 public class Activities : InteractionModuleBase<SocketInteractionContext>
 {

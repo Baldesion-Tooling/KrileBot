@@ -1,4 +1,4 @@
-﻿namespace KrileDotNet;
+﻿namespace KrileBot;
 
 public static class Helpers
 {

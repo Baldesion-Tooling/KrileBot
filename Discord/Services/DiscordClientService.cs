@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 
-namespace KrileDotNet.Services;
+namespace KrileBot.Services;
 
 public class DiscordClientService : IHostedService
 {
@@ -35,11 +35,13 @@ public class DiscordClientService : IHostedService
         {
             _commandService = new CommandService();
         }
-        
+
+        await LodestoneService.SetupService();
         _serviceProvider = new ServiceCollection()
             .AddSingleton(_client)
             .AddSingleton(_commandService)
             .AddSingleton(_interactionService)
+            .AddSingleton<LodestoneService>()
             .BuildServiceProvider();
 
         var botToken = Environment.GetEnvironmentVariable("DISCORD_TOKEN");

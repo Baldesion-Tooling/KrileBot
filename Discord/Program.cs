@@ -1,4 +1,4 @@
-﻿using KrileDotNet.Services;
+﻿using KrileBot.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
