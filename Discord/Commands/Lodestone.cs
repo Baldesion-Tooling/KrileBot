@@ -14,9 +14,9 @@ public class Lodestone : InteractionModuleBase<SocketInteractionContext>
     }
 
     [SlashCommand("player", "Gets basic player data from lodestone")]
-    public async Task Get(string characterId)
+    public async Task GetProfile(string characterId)
     {
-        var temp = await _service.GetCharacterPortrait(characterId);
-        await RespondAsync(temp);
+        var character = await _service.GetCharacter(characterId);
+        await RespondAsync(character.Name);
     }
 }

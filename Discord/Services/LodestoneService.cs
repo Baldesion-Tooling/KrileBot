@@ -1,4 +1,5 @@
 ﻿using NetStone;
+using NetStone.Model.Parseables.Character;
 
 namespace KrileBot.Services;
 
@@ -16,9 +17,5 @@ public class LodestoneService
         }
     }
 
-    public async Task<string> GetCharacterPortrait(string characterId)
-    {
-        var character = await _client!.GetCharacter(characterId);
-        return character.Portrait.ToString();
-    }
+    public async Task<LodestoneCharacter> GetCharacter(string characterId) => await _client!.GetCharacter(characterId);
 }
